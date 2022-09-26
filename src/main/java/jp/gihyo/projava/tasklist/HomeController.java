@@ -22,6 +22,12 @@ public class HomeController {
 
     record TaskItem(String id, String task, String deadline, boolean done){}
     private List<TaskItem> taskItems = new ArrayList<>();
+    private final TaskListDao dao;
+
+    @Autowired
+    HomeController(TaskListDao dao){
+        this.dao=dao;
+    }
 
     @GetMapping("/list")
     String listItems(Model model){
@@ -40,11 +46,6 @@ public class HomeController {
         return "redirect:/list";
     }
 
-    private final TaskListDao dao;
 
-    @Autowired
-    HomeController(TaskListDao dao){
-        this.dao=dao;
-    }
 
 }
