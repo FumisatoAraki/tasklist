@@ -25,6 +25,7 @@ public class HomeController {
 
     @GetMapping("/list")
     String listItems(Model model){
+        List<TaskItem> taskItems = dao.findAll();
         model.addAttribute("taskList", taskItems);
         return "home";
     }
