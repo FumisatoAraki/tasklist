@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -41,5 +43,23 @@ public class TaskListDao {
 
         return taskItems;
     }
+
+    public int delete(String id){
+        int number= jdbcTemplate.update("DELETE FROM tasklist WHERE id=?", id);
+        return number;
+    }
+
+    public int update(TaskItem taskItem){
+        int number= jdbcTemplate.update(
+                "UPDATE tasklist SET task = ?, deadline = ?, done = ? WHERE id= ?",
+                taskItem.task(),
+                taskItem.deadline(),
+                taskItem.done(),
+                taskItem.id()
+        );
+        return number;
+    }
+
+
 
 }
